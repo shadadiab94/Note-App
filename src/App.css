@@ -1,0 +1,59 @@
+/* Layout */
+.app-container {
+    display: flex;
+    height: 100vh;
+    font-family: Arial, sans-serif;
+  }
+  
+  .sidebar {
+    width: 250px;
+    background-color: #f5f5f5;
+    padding: 1rem;
+    border-right: 1px solid #ddd;
+  }
+  
+  .main-content {
+    flex: 1;
+    padding: 2rem;
+    background-color: #fff;
+  }
+  
+  /* Sidebar */
+  .add-note-btn {
+    display: block;
+    width: 100%;
+    padding: 0.5rem;
+    margin-bottom: 1rem;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    cursor: pointer;
+    border-radius: 4px;
+  }
+  
+  .note-list li {
+    margin: 0.5rem 0;
+  }
+  
+  .note-list a {
+    text-decoration: none;
+    color: #333;
+  }
+  
+  /* Note Editor */
+  .note-editor input,
+  .note-editor textarea {
+    display: block;
+    width: 100%;
+    margin-bottom: 1rem;
+    padding: 0.5rem;
+    font-size: 1rem;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+  }
+  
+  .saved-indicator {
+    color: green;
+    font-weight: bold;
+  }
+  
