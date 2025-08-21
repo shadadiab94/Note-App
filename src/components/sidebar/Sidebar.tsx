@@ -10,7 +10,7 @@ interface SidebarProps {
 const priorityOrder: Record<string, number> = { high: 1, medium: 2, low: 3 };
 
 export default function Sidebar({ notes, onAddNote }: SidebarProps) {
-  // Optional: highlight the active note
+ 
   const { id: activeId } = useParams();
 
   const sortedNotes = [...notes].sort((a, b) => {
