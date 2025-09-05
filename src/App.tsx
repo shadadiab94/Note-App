@@ -18,7 +18,8 @@ function App() {
  const [users, setUsers] = useState<string[]>(['user1', 'user2']); // could come from Firestore later
 
   const navigate = useNavigate();
-  const { currentUser, setCurrentUser } = useUser();
+  const [currentUser] = useState<string | null>(null);
+
 
   const [notes, setNotes] = useState<Note[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
