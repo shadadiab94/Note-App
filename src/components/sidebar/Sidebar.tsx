@@ -5,39 +5,61 @@ import "./Sidebar.css";
 interface SidebarProps {
   notes: Note[];
   onAddNote: () => void;
+  currentUser: string | null;
+  onOpenModal: () => void;
 }
 
-const priorityOrder: Record<string, number> = { high: 1, medium: 2, low: 3 };
+export default function Sidebar({ notes, onAddNote, currentUser, onOpenModal }: SidebarProps) {
 
-export default function Sidebar({ notes, onAddNote }: SidebarProps) {
- 
   const { id: activeId } = useParams();
 
-  const sortedNotes = [...notes].sort((a, b) => {
-    const pa = priorityOrder[a.priority] ?? 4;
-    const pb = priorityOrder[b.priority] ?? 4;
-    return pa - pb;
-  });
+  const groupByPriority = (priority: string) =>
+    notes.filter((note) => note.priority === priority);
+
+  const renderNoteList = (priority: string, title: string) => {
+    const groupedNotes = groupByPriority(priority);
+
+    if (groupedNotes.length === 0) return null;
+
+    return (
+      <div className="priority-section">
+        <h3>{title}</h3>
+        <ul className="note-list">
+          {groupedNotes.map((note) => (
+            <li key={note.id}>
+              <Link
+                to={`/note/${note.id}`}
+                className={note.id === activeId ? "active" : undefined}
+              >
+                {note.title || "Untitled"}
+              </Link>
+            </li>
+          ))}
+        </ul>
+      </div>
+    );
+  };
 
   return (
+    
     <div className="sidebar">
-      <button className="add-note-btn" onClick={onAddNote}>
-        New Note
-      </button>
+   
 
-      <ul className="note-list">
-        {sortedNotes.length === 0 && <li>No notes yet</li>}
-        {sortedNotes.map((note) => (
-          <li key={note.id}>
-            <Link
-              to={`/note/${note.id}`}
-              className={note.id === activeId ? "active" : undefined}
-            >
-              {note.title || "Untitled"} — <em>{note.priority}</em>
-            </Link>
-          </li>
-        ))}
-      </ul>
+    {/* user selector */}
+    <div className="user-info">
+      <button onClick={onOpenModal}>
+        {currentUser ? ` ${currentUser}` : 'Select User'}
+      </button>
     </div>
+  
+
+    <button className="add-note-btn" onClick={onAddNote}>
+      + Add Note
+    </button>
+
+    {renderNoteList("high", "High Priority")}
+    {renderNoteList("medium", "Medium Priority")}
+    {renderNoteList("low", "Low Priority")}
+  </div>
   );
 }

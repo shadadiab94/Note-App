@@ -2,45 +2,54 @@ import { useEffect, useState } from "react";
 import { Routes, Route, useNavigate, useParams } from "react-router-dom";
 import { collection, getDocs, setDoc, doc } from "firebase/firestore";
 import { db } from "./firebase";
-
+import { useUser } from './context/UserContext';
 import Sidebar from "./components/sidebar/Sidebar";
 import NoteEditor from "./components/NoteEditor/NoteEditor";
 import type { Note } from "./types";
+import UserModal from './components/UserModal/UserModal';
+
 import "./App.css";
 
-function App() {
-  const navigate = useNavigate();
 
+
+function App() {
+  
+  const [isModalOpen, setIsModalOpen] = useState(false);
+ const [users, setUsers] = useState<string[]>(['user1', 'user2']); // could come from Firestore later
+
+  const navigate = useNavigate();
+  const { currentUser, setCurrentUser } = useUser();
 
   const [notes, setNotes] = useState<Note[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
 
   useEffect(() => {
+    if (!currentUser) return;
+  
     const fetchNotes = async () => {
       try {
-        const querySnapshot = await getDocs(collection(db, "notes"));
+        const querySnapshot = await getDocs(collection(db, "users", currentUser, "notes"));
         const fetchedNotes: Note[] = [];
-
+  
         querySnapshot.forEach((docSnap) => {
           const data = docSnap.data();
           fetchedNotes.push({
-            id: data.id,
+            id: docSnap.id,
             title: data.title,
             content: data.content,
             priority: data.priority || "low",
           });
         });
-
+  
         setNotes(fetchedNotes);
         setLoading(false);
       } catch (error) {
-        console.error("❌ Error loading notes:", error);
+        console.error("Error loading:", error);
       }
     };
-
+  
     fetchNotes();
-  }, []);
-
+  }, [currentUser]); 
 
   const handleAddNote = () => {
     const newNote: Note = {
@@ -61,7 +70,8 @@ function App() {
     updatedNote: Pick<Note, "title" | "content" | "priority">
   ) => {
     try {
-      await setDoc(doc(db, "notes", id), {
+      await setDoc(doc(db, 'users', currentUser!, 'notes', id), {
+
         ...updatedNote,
         id,
         createdAt: new Date().toISOString(),
@@ -82,11 +92,29 @@ function App() {
 
   return (
     <div className="app-container">
+  
+      
+  
+       
+  {(!currentUser || isModalOpen) && (
+  <UserModal
+    users={users}
+    onAddUser={(id) => setUsers((prev) => [...prev, id])}
+    onClose={() => setIsModalOpen(false)}
+  />
+)}
+
+     
       {loading ? (
         <p>Loading notes from Firestore...</p>
       ) : (
         <>
-          <Sidebar notes={notes} onAddNote={handleAddNote} />
+          <Sidebar
+  notes={notes}
+  onAddNote={handleAddNote}
+  currentUser={currentUser}
+  onOpenModal={() => setIsModalOpen(true)}
+/>
           <div className="main-content">
             <Routes>
               <Route
@@ -105,8 +133,7 @@ function App() {
       )}
     </div>
   );
-}
-
+  
 
 function NoteEditorWithKey(props: {
   notes: Note[];
@@ -115,5 +142,5 @@ function NoteEditorWithKey(props: {
   const { id } = useParams();
   return <NoteEditor key={id} {...props} />;
 }
-
+}
 export default App;

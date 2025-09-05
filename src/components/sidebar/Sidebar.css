@@ -1,6 +1,65 @@
+.header {
+  font-size: 1.5rem;
+  font-weight: bold;
+  margin-bottom: 1rem;
+}
 
-  .note-list li em {
-    font-size: 0.8rem;
-    color: #888;
-  }
-  
+.add-note-btn {
+  background-color: #007bff;
+  color: white;
+  padding: 0.6rem 1rem;
+  border: none;
+  border-radius: 8px;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background 0.2s ease;
+}
+
+.add-note-btn:hover {
+  background-color: #0056b3;
+}
+
+.user-info {
+  margin-bottom: 1rem;
+  font-size: 0.9rem;
+}
+
+.user-info button {
+  background: none;
+  border: 1px solid #ccc;
+  padding: 0.4rem 0.8rem;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.priority-section {
+  margin-top: 1.5rem;
+}
+
+.priority-section h3 {
+  font-size: 1rem;
+  margin-bottom: 0.5rem;
+}
+
+.note-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.note-list li {
+  margin: 0.3rem 0;
+}
+
+.note-list a {
+  text-decoration: none;
+  color: #333;
+  padding: 0.4rem 0.6rem;
+  display: block;
+  border-radius: 6px;
+}
+
+.note-list a.active,
+.note-list a:hover {
+  background-color: #e6f0ff;
+}
