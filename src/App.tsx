@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { Routes, Route, useNavigate, useParams } from "react-router-dom";
 import { collection, getDocs, setDoc, doc } from "firebase/firestore";
 import { db } from "./firebase";
-import { useUser } from './context/UserContext';
+
 import Sidebar from "./components/sidebar/Sidebar";
 import NoteEditor from "./components/NoteEditor/NoteEditor";
 import type { Note } from "./types";
@@ -18,7 +18,7 @@ function App() {
  const [users, setUsers] = useState<string[]>(['user1', 'user2']); // could come from Firestore later
 
   const navigate = useNavigate();
-  const [currentUser] = useState<string | null>(null);
+  const [currentUser, setCurrentUser] = useState<string>("user1");
 
 
   const [notes, setNotes] = useState<Note[]>([]);
@@ -41,6 +41,10 @@ function App() {
             priority: data.priority || "low",
           });
         });
+        useEffect(() => {
+          // i can't delete setcurrent user and i have to use it. wierd
+          void setCurrentUser;
+        }, []);
   
         setNotes(fetchedNotes);
         setLoading(false);
