@@ -1,0 +1,87 @@
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(30, 30, 30, 0.6);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.user-modal {
+  background: white;
+  padding: 2rem;
+  border-radius: 12px;
+  width: 90%;
+  max-width: 420px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.user-modal h2 {
+  margin: 0;
+  font-size: 1.4rem;
+  color: #333;
+  text-align: center;
+}
+
+.user-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.user-list button {
+  padding: 0.5rem 1rem;
+  background: #f2f2f2;
+  border: none;
+  border-radius: 6px;
+  font-size: 1rem;
+  cursor: pointer;
+  text-align: left;
+  transition: background 0.2s;
+}
+
+.user-list button:hover {
+  background: #e0e0e0;
+}
+
+.new-user {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.new-user input {
+  flex: 1;
+  padding: 0.5rem;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+}
+
+.new-user button {
+  background: #007bff;
+  color: white;
+  padding: 0.5rem 0.9rem;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.new-user button:hover {
+  background: #005fc1;
+}
+
+.close-btn {
+  align-self: flex-end;
+  background: transparent;
+  border: none;
+  font-size: 1.4rem;
+  cursor: pointer;
+  color: #888;
+}

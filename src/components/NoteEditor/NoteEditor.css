@@ -1,0 +1,40 @@
+.note-editor {
+    background: white;
+    padding: 2rem;
+    border-radius: 10px;
+    box-shadow: 0 0 15px rgba(0,0,0,0.05);
+    max-width: 800px;
+    margin: 0 auto;
+  }
+  
+  .note-editor input,
+  .note-editor textarea,
+  .note-editor select {
+    width: 100%;
+    padding: 0.8rem;
+    margin-bottom: 1rem;
+    border: 1px solid #ddd;
+    border-radius: 6px;
+    font-size: 1rem;
+  }
+  
+  .note-editor button {
+    background-color: #28a745;
+    color: white;
+    padding: 0.6rem 1.2rem;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 1rem;
+  }
+  
+  .note-editor button:hover {
+    background-color: #218838;
+  }
+  
+  .saved-indicator {
+    margin-top: 0.5rem;
+    color: #28a745;
+    font-weight: bold;
+  }
+  
