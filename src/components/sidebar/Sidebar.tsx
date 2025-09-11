@@ -2,6 +2,7 @@ import { Link, useParams } from "react-router-dom";
 import type { Note } from "../../types";
 import "./Sidebar.css";
 
+
 interface SidebarProps {
   notes: Note[];
   onAddNote: () => void;
@@ -60,6 +61,10 @@ export default function Sidebar({ notes, onAddNote, currentUser, onOpenModal }: 
     {renderNoteList("high", "High Priority")}
     {renderNoteList("medium", "Medium Priority")}
     {renderNoteList("low", "Low Priority")}
+
+ 
   </div>
+
+
   );
 }

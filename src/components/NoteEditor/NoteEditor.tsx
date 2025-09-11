@@ -1,7 +1,7 @@
 import { useParams } from "react-router-dom";
 import { useState } from "react";
 import type { Note, Priority } from "../../types";
-
+import "./NoteEditor.css"
 
 interface NoteEditorProps {
   notes: Note[];
@@ -19,6 +19,8 @@ export default function NoteEditor({ notes, onSave }: NoteEditorProps) {
   const [content, setContent] = useState<string>(note.content ?? "");
   const [priority, setPriority] = useState<Priority>(note.priority ?? "low");
   const [saved, setSaved] = useState<boolean>(false);
+
+  
 
   const handleSaveClick = () => {
     onSave(id!, { title, content, priority });
