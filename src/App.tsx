@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { Routes, Route, useNavigate, useParams } from "react-router-dom";
 import { collection, getDocs, setDoc, doc } from "firebase/firestore";
 import { db } from "./firebase";
-
+import { useUser } from './context/UserContext';
 import Sidebar from "./components/sidebar/Sidebar";
 import NoteEditor from "./components/NoteEditor/NoteEditor";
 import type { Note } from "./types";
@@ -15,11 +15,10 @@ import "./App.css";
 function App() {
   
   const [isModalOpen, setIsModalOpen] = useState(false);
- const [users, setUsers] = useState<string[]>(['user1', 'user2']); // could come from Firestore later
+ const [users, setUsers] = useState<string[]>(['user1', 'user2']); //comes form firetore later
 
   const navigate = useNavigate();
-  const [currentUser, setCurrentUser] = useState<string>("user1");
-
+  const { currentUser, setCurrentUser } = useUser();
 
   const [notes, setNotes] = useState<Note[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
@@ -41,10 +40,6 @@ function App() {
             priority: data.priority || "low",
           });
         });
-        useEffect(() => {
-          // i can't delete setcurrent user and i have to use it. wierd
-          void setCurrentUser;
-        }, []);
   
         setNotes(fetchedNotes);
         setLoading(false);
@@ -79,7 +74,7 @@ function App() {
 
         ...updatedNote,
         id,
-        createdAt: new Date().toISOString(),
+      
       });
 
   
